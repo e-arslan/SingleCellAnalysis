@@ -95,8 +95,10 @@ scater features the following functionality:
 	* Seamless integration into the Bioconductor universe  
 	* Simple normalisation methods  
 
+ Keep in mind that this figure represents the original version of scater where an SCESet class was used. In the newest version this figure is still correct, except that SCESet can be substituted with the SingleCellExperiment class.
+ 
 
-
+![Examples](images/scater_qc_workflow.png)
 
 
 
