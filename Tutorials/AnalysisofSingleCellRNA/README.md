@@ -108,6 +108,12 @@ scater features the following functionality:
 ## Cleaning the expression Matrix  
 Once gene expression has been quantified it is summarized as an expression matrix where each row corresponds to a gene (or transcript) and each column corresponds to a single cell. This matrix should be examined to remove poor quality cells which were not detected in either read QC or mapping QC steps. Failure to remove low quality cells at this stage may add technical noise which has the potential to obscure the biological signals of interest in the downstream analysis.
 
+Since there is currently no standard method for performing scRNASeq, to perform QC we will be looking for cells which are outliers with respect to the rest of the dataset rather than comparing to independent quality standards.  
+
+
+
+## Seurat
+We recommend using Seurat for datasets with more than  5000 cells. For smaller dataset a good alternative will be SC3.  
 
 
 
