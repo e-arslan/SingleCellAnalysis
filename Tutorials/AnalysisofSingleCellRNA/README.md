@@ -29,6 +29,8 @@ Overall, experimental scRNA-seq protocols are similar to the methods used for bu
 
 ![Examples](images/RNA-Seq_workflow-5.jpg)
 
+![Examples](images/moores-law.png)
+
 
 ## Computational Analysis
  The first steps (yellow) are general for any highthroughput sequencing data. Later steps (orange) require a mix of existing RNASeq analysis methods and novel methods to address the technical difference of scRNASeq. Finally the biological interpretation (blue) should be analyzed with methods specifically developed for scRNASeq.
