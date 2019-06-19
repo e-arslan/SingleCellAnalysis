@@ -96,13 +96,16 @@ scater features the following functionality:
 	* Simple normalisation methods  
 
  Keep in mind that this figure represents the original version of scater where an SCESet class was used. In the newest version this figure is still correct, except that SCESet can be substituted with the SingleCellExperiment class.
+
+
+![Examples](images/scater_qc_workflow.png)  
+
+* ggplot2  
+	* Your data must be a dataframe if you want to plot it using ggplot2.  
+	* Use the aes mapping function to specify how variables in the dataframe map to features on your plot  
+	* Use geoms to specify how your data should be represented on your graph eg. as a scatterplot, a barplot, a boxplot etc.  
+
  
-
-![Examples](images/scater_qc_workflow.png)
-
-
-
-
 
 
 
