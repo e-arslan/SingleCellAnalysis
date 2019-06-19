@@ -1,3 +1,3 @@
 # SingleCellAnalysis
 
-[Analysis of single cell RNA-seq data](./)
+[Analysis of single cell RNA-seq data](./AnalysisofSingleCellRNA)
