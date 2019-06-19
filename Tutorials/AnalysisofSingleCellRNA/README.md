@@ -4,6 +4,7 @@ https://scrnaseq-course.cog.sanger.ac.uk/website/index.html
 
 ## Biological Terms that One should know
 Transcriptomics: The study of transcriptomes and their functions.
+
 Transcriptome: The transcriptome is the set of all RNA molecules in one cell or a population of cells. 
 ![Examples](images/G_schem.png)
 
