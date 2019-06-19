@@ -25,6 +25,19 @@ scRNA-seq : A new technology, first publication by (Tang et al. 2009)
 
 
 ## Workflow
-
+Overall, experimental scRNA-seq protocols are similar to the methods used for bulk RNA-seq.
 
 ![Examples](images/RNA-Seq_workflow-5.jpg)
+
+
+## Computational Analysis
+ The first steps (yellow) are general for any highthroughput sequencing data. Later steps (orange) require a mix of existing RNASeq analysis methods and novel methods to address the technical difference of scRNASeq. Finally the biological interpretation (blue) should be analyzed with methods specifically developed for scRNASeq.
+
+![Examples](images/flowchart.png)
+
+
+
+
+
+
+
