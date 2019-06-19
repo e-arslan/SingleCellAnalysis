@@ -105,8 +105,8 @@ scater features the following functionality:
 	* Use the aes mapping function to specify how variables in the dataframe map to features on your plot  
 	* Use geoms to specify how your data should be represented on your graph eg. as a scatterplot, a barplot, a boxplot etc.  
 
- 
-
+## Cleaning the expression Matrix  
+Once gene expression has been quantified it is summarized as an expression matrix where each row corresponds to a gene (or transcript) and each column corresponds to a single cell. This matrix should be examined to remove poor quality cells which were not detected in either read QC or mapping QC steps. Failure to remove low quality cells at this stage may add technical noise which has the potential to obscure the biological signals of interest in the downstream analysis.
 
 
 
