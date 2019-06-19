@@ -23,3 +23,8 @@ scRNA-seq : A new technology, first publication by (Tang et al. 2009)
 * Several computational analysis methods from bulk RNA-seq can be used
 * In most cases computational analysis requires adaptation of the existing methods or development of new ones
 
+
+## Workflow
+
+
+![Examples](images/RNA-Seq_workflow-5.jpg)
