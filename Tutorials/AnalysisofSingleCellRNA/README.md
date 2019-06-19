@@ -54,6 +54,9 @@ devtools::install_github("tallulandrews/M3D", ref="nbumi")
 # previous commit
 devtools::install_github("tallulandrews/M3Drop", ref="434d2da28254acc8de4940c1dc3907ac72973
 
+* Source PAckage Installation
+install.packages("M3Drop_3.05.00.tar.gz", type="source")
+
 
 
 
