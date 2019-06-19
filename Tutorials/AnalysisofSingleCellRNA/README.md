@@ -73,6 +73,28 @@ options(stringsAsFactors=FALSE)
 	* Each value has its own cell.  
 
 
+* SingleCellExperiment (SCE) is a S4 class for storing data from single-cell experiments. This includes specialized methods to store and retrieve spike-in information, dimensionality reduction coordinates and size factors for each cell, along with the usual metadata for genes and libraries.  
+
+
+* In the SingleCellExperiment, users can assign arbitrary names to entries of assays. To assist interoperability between packages, some suggestions for what the names should be for particular types of data are provided by the authors:  
+
+counts: Raw count data, e.g., number of reads or transcripts for a particular gene.  
+normcounts: Normalized values on the same scale as the original counts. For example, counts divided by cell-specific size factors that are centred at unity.  
+logcounts: Log-transformed counts or count-like values. In most cases, this will be defined as log-transformed normcounts, e.g., using log base 2 and a pseudo-count of 1.  
+cpm: Counts-per-million. This is the read count for each gene in each cell, divided by the library size of each cell in millions.  
+tpm: Transcripts-per-million. This is the number of transcripts for each gene in each cell, divided by the total number of transcripts in that cell (in millions).  
+
+
+* scater is a R package for single-cell RNA-seq analysis (McCarthy et al. 2017). The package contains several useful methods for quality control, visualisation and pre-processing of data prior to further downstream analysis.  
+
+scater features the following functionality:  
+	* Automated computation of QC metrics  
+	* Transcript quantification from read data with pseudo-alignment  
+	* Data format standardisation  
+	* Rich visualizations for exploratory analysis  
+	* Seamless integration into the Bioconductor universe  
+	* Simple normalisation methods  
+
 
 
 
