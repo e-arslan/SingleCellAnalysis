@@ -50,7 +50,7 @@ Overall, experimental scRNA-seq protocols are similar to the methods used for bu
 Github is also a version control system which stores multiple versions of any package. By default the most recent “master” version of the package is installed. If you want an older version or the development branch this can be specified using the “ref” parameter:
 
 
-devtools::install_github("tallulandrews/M3D", ref="nbumi")
+devtools::install_github("tallulandrews/M3D", ref="nbumi")  
 devtools::install_github("tallulandrews/M3Drop", ref="434d2da28254acc8de4940c1dc3907ac72973
 
 * Source PAckage Installation
