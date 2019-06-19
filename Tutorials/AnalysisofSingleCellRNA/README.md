@@ -20,3 +20,6 @@ scRNA-seq : A new technology, first publication by (Tang et al. 2009)
 * Measures the distribution of expression levels for each gene across a population of cells.  
 * Allows to study new biological questions in which cell-specific changes in transcriptome are important, e.g. cell type identification, heterogeneity of cell responses, stochasticity of gene expression, inference of gene regulatory networks across the cells.  
 * Datasets range from 10<sup>2</sup> to 10<sup>6</sup> cells and increase in size every year
+* Several computational analysis methods from bulk RNA-seq can be used
+* In most cases computational analysis requires adaptation of the existing methods or development of new ones
+
