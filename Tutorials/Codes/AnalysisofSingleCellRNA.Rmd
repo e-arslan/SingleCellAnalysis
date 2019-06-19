@@ -1,0 +1,41 @@
+---
+title: "SingleCell"
+author: "Emre"
+date: "6/19/2019"
+output: html_document
+---
+## Fastqc
+sudo ln -s ~/Downloads/FastQC/fastqc /usr/local/bin/fastqc
+```{bash}
+fastqc -o fastqc_results ERR522959_1.fastq ERR522959_2.fastq
+```
+
+
+
+### Trimming 
+sudo ln -s ~/Downloads/TrimGalore-0.6.2/trim_galore /usr/local/bin/trim_galore
+conda install -c bioconda cutadapt
+sudo ln -s /anaconda3/bin/cutadapt /usr/local/bin/cutadapt
+
+```{bash}
+mkdir fastqc_trimmed_results
+trim_galore --nextera -o fastqc_trimmed_results ERR522959_1.fastq ERR522959_2.fastq
+```
+
+
+```{bash}
+fastqc -o fastqc_trimmed_results/  fastqc_trimmed_results/
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
