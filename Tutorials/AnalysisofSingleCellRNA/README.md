@@ -53,16 +53,19 @@ Github is also a version control system which stores multiple versions of any pa
 devtools::install_github("tallulandrews/M3D", ref="nbumi")  
 devtools::install_github("tallulandrews/M3Drop", ref="434d2da28254acc8de4940c1dc3907ac72973
 
-* Source PAckage Installation
+* Source Package Installation  
 install.packages("M3Drop_3.05.00.tar.gz", type="source")
 
 
+Another special type of character data are colours.   
+
+reds = c("red", rgb(1,0,0), hsv(0, 1, 1))  
+barplot(c(1,1,1), col=reds, names=c("by_name", "by_rgb", "by_hsv"))
 
 
+To make R read text as character data instead of factors set the environment option stringsAsFactors=FALSE. This must be done at the start of each R session.
 
-
-
-
+options(stringsAsFactors=FALSE)
 
 
 
