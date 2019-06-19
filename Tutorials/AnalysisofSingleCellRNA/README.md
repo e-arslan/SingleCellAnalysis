@@ -19,4 +19,4 @@ Single-cell RT-qPCR :
 scRNA-seq : A new technology, first publication by (Tang et al. 2009)  
 * Measures the distribution of expression levels for each gene across a population of cells.  
 * Allows to study new biological questions in which cell-specific changes in transcriptome are important, e.g. cell type identification, heterogeneity of cell responses, stochasticity of gene expression, inference of gene regulatory networks across the cells.  
-* Datasets range from 10^2 to 10^6 cells and increase in size every year
+* Datasets range from 10<sup>2</sup> to 10<sup>6</sup> cells and increase in size every year
