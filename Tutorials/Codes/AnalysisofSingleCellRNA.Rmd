@@ -33,7 +33,279 @@ fastqc -o fastqc_trimmed_results/  fastqc_trimmed_results/
 
 
 
+## R/Bioconductor
+```{r}
+reds = c("red", rgb(1,0,0), hsv(0, 1, 1))  
+barplot(c(1,1,1), col=reds, names=c("by_name", "by_rgb", "by_hsv"))
+```
 
+Untidy --> tidy data
+```{r}
+library(tidyverse)
+sports<-data.frame(Students=c("Matt", "Matt", "Ellie", "Ellie", "Tim", "Tim", "Louise", "Louise", "Kelly", "Kelly"), Sport=c("Tennis","Tennis", "Rugby", "Rugby","Football", "Football","Swimming","Swimming", "Running", "Running"), Category=c("Wins", "Losses", "Wins", "Losses", "Wins", "Losses", "Wins", "Losses", "Wins", "Losses"), Counts=c(0,1,3,2,1,4,2,2,5,1))
+sports
+spread(sports, key=Category, value=Counts)
+
+```
+
+
+An object of SingleCellExperiment class can be created using its constructor:
+```{r}
+library(SingleCellExperiment)
+counts <- matrix(rpois(100, lambda = 10), ncol=10, nrow=10)
+rownames(counts) <- paste("gene", 1:10, sep = "")
+colnames(counts) <- paste("cell", 1:10, sep = "")
+sce <- SingleCellExperiment(
+    assays = list(counts = counts),
+    rowData = data.frame(gene_names = paste("gene_name", 1:10, sep = "")),
+    colData = data.frame(cell_names = paste("cell_name", 1:10, sep = ""))
+)
+sce
+```
+
+
+Each of these suggested names has an appropriate getter/setter method for convenient manipulation of the SingleCellExperiment. For example, we can take the (very specifically named) counts slot, normalise it and assign it to normcounts instead:
+```{r}
+normcounts(sce) <- log2(counts(sce) + 1)
+sce
+dim(normcounts(sce))
+head(normcounts(sce))
+
+```
+
+
+ggplot2
+```{r}
+library(ggplot2)
+library(tidyverse)
+set.seed(1)
+counts <- as.data.frame(matrix(rpois(100, lambda = 10), ncol=10, nrow=10))
+Gene_ids <- paste("gene", 1:10, sep = "")
+colnames(counts) <- paste("cell", 1:10, sep = "")
+counts<-data.frame(Gene_ids, counts)
+counts
+ggplot(data = counts, mapping = aes(x = cell1, y = cell2)) + geom_point()
+
+```
+
+At the moment we can’t do this because we are treating each individual cell as a variable and assigning that variable to either the x or the y axis. We could create a 10 dimensional graph to plot data from all 10 cells on, but this is a) not possible to do with ggplot and b) not very easy to interpret. What we could do instead is to tidy our data so that we had one variable representing cell ID and another variable representing gene counts, and plot those against each other. In code, this would look like:
+
+```{r}
+counts<-gather(counts, colnames(counts)[2:11], key = 'Cell_ID', value='Counts')
+head(counts)
+ggplot(counts,aes(x=Cell_ID, y=Counts)) + geom_boxplot()
+
+```
+
+
+A common method for visualising gene expression data is with a heatmap. Here we will use the R package pheatmap to perform this analysis with some gene expression data we will name test.
+
+```{r}
+library(pheatmap)
+set.seed(2)
+test = matrix(rnorm(200), 20, 10)
+test[1:10, seq(1, 10, 2)] = test[1:10, seq(1, 10, 2)] + 3
+test[11:20, seq(2, 10, 2)] = test[11:20, seq(2, 10, 2)] + 2
+test[15:20, seq(2, 10, 2)] = test[15:20, seq(2, 10, 2)] + 4
+colnames(test) = paste("Cell", 1:10, sep = "")
+rownames(test) = paste("Gene", 1:20, sep = "")
+pheatmap(test)
+pheatmap(test, kmeans_k = 2)
+
+```
+
+
+
+```{r}
+library(ggfortify)
+Principal_Components<-prcomp(test)
+autoplot(Principal_Components, label=TRUE)
+```
+
+
+
+
+## Seurat
+```{r}
+library(Seurat)
+library(dplyr)
+library(cowplot)
+# Load the PBMC dataset
+pbmc.data <- Read10X(data.dir = "~/Documents/Single Cell Analysis/Datasets/hg19/")
+
+# Examine the memory savings between regular and sparse matrices
+dense.size <- object.size(x = as.matrix(x = pbmc.data))
+dense.size
+```
+
+```{r}
+sparse.size <- object.size(x = pbmc.data)
+sparse.size
+```
+
+```{r}
+dense.size/sparse.size
+```
+
+
+Initialize the Seurat object with the raw (non-normalized data).  Keep all
+genes expressed in >= 3 cells (~0.1% of the data). Keep all cells with at
+least 200 detected genes
+
+```{r}
+pbmc <- CreateSeuratObject(counts = pbmc.data, min.cells = 3, min.features  = 200, project = "10X_PBMC", assay = "RNA")
+```
+
+While the CreateSeuratObject imposes a basic minimum gene-cutoff, you may want to filter out cells at this stage based on technical or biological parameters. Seurat allows you to easily explore QC metrics and filter cells based on any user-defined criteria. In the example below, we visualize gene and molecule counts, plot their relationship, and exclude cells with a clear outlier number of genes detected as potential multiplets. Of course this is not a guaranteed method to exclude cell doublets, but we include this as an example of filtering user-defined outlier cells. We also filter cells based on the percentage of mitochondrial genes present.
+
+
+```{r}
+# The number of genes and UMIs (nGene and nUMI) are automatically calculated
+# for every object by Seurat.  For non-UMI data, nUMI represents the sum of
+# the non-normalized values within a cell We calculate the percentage of
+# mitochondrial genes here and store it in percent.mito using AddMetaData.
+# We use object@raw.data since this represents non-transformed and
+# non-log-normalized counts The % of UMI mapping to MT-genes is a common
+# scRNA-seq QC metric.
+mito.genes <- grep(pattern = "^MT-", x = rownames(pbmc@assays[["RNA"]]), value = TRUE)
+
+percent.mito <- Matrix::colSums(pbmc@assays[["RNA"]][mito.genes, ])/Matrix::colSums(pbmc@assays[["RNA"]])
+
+# AddMetaData adds columns to object@meta.data, and is a great place to
+# stash QC stats
+
+#Seurat v2 function, but shows compatibility in Seurat v3
+pbmc <- AddMetaData(object = pbmc, metadata = percent.mito, col.name = "percent.mito") 
+#in case the above function does not work simply do:
+pbmc$percent.mito <- percent.mito
+
+VlnPlot(object = pbmc, features = c("nFeature_RNA", "nCount_RNA", "percent.mito"), ncol = 3)
+```
+
+```{r}
+# GenePlot is typically used to visualize gene-gene relationships, but can
+# be used for anything calculated by the object, i.e. columns in
+# object@meta.data, PC scores etc.  Since there is a rare subset of cells
+# with an outlier level of high mitochondrial percentage and also low UMI
+# content, we filter these as well
+par(mfrow = c(1, 2))
+FeatureScatter(object = pbmc, feature1 = "nCount_RNA", feature2 = "percent.mito")
+```
+
+
+```{r}
+FeatureScatter(object = pbmc, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+
+```
+
+
+```{r}
+# We filter out cells that have unique gene counts (nFeature_RNA) over 2,500 or less than
+# 200 Note that > and < are used to define a'gate'.  
+#-Inf and Inf should be used if you don't want a lower or upper threshold.
+pbmc <- subset(x = pbmc, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mito >  -Inf & percent.mito < 0.05 )
+```
+
+### Normalizing the data
+After removing unwanted cells from the dataset, the next step is to normalize the data. By default, we employ a global-scaling normalization method “LogNormalize” that normalizes the gene expression measurements for each cell by the total expression, multiplies this by a scale factor (10,000 by default), and log-transforms the result.
+```{r}
+pbmc <- NormalizeData(object = pbmc, normalization.method = "LogNormalize", scale.factor = 10000)
+
+```
+
+
+### Detection of variable genes across the single cells
+Seurat calculates highly variable genes and focuses on these for downstream analysis. FindVariableGenes calculates the average expression and dispersion for each gene, places these genes into bins, and then calculates a z-score for dispersion within each bin. This helps control for the relationship between variability and average expression. This function is unchanged from (Macosko et al.), but new methods for variable gene expression identification are coming soon. We suggest that users set these parameters to mark visual outliers on the dispersion plot, but the exact parameter settings may vary based on the data type, heterogeneity in the sample, and normalization strategy. The parameters here identify ~2,000 variable genes, and represent typical parameter settings for UMI data that is normalized to a total of 1e4 molecules.
+```{r}
+pbmc <- FindVariableFeatures(object = pbmc, mean.function = ExpMean, dispersion.function = LogVMR, x.low.cutoff = 0.0125, x.high.cutoff = 3, y.cutoff = 0.5, nfeatures = 2000)
+
+```
+
+To view the output of the FindVariableFeatures output we use this function. The genes appear not to be stored in the object, but can be accessed this way.
+
+```{r}
+head(x = HVFInfo(object = pbmc))
+
+```
+
+
+### Scaling the data and removing unwanted sources of variation
+Your single cell dataset likely contains ‘uninteresting’ sources of variation. This could include not only technical noise, but batch effects, or even biological sources of variation (cell cycle stage). As suggested in Buettner et al, NBT, 2015, regressing these signals out of the analysis can improve downstream dimensionality reduction and clustering. To mitigate the effect of these signals, Seurat constructs linear models to predict gene expression based on user-defined variables. The scaled z-scored residuals of these models are stored in the scale.data slot, and are used for dimensionality reduction and clustering.
+
+We can regress out cell-cell variation in gene expression driven by batch (if applicable), cell alignment rate (as provided by Drop-seq tools for Drop-seq data), the number of detected molecules, and mitochondrial gene expression. For cycling cells, we can also learn a ‘cell-cycle’ score (see example here) and regress this out as well. In this simple example here for post-mitotic blood cells, we regress on the number of detected molecules per cell as well as the percentage mitochondrial gene content.
+
+Seurat v2.0 implements this regression as part of the data scaling process. Therefore, the RegressOut function has been deprecated, and replaced with the vars.to.regress argument in ScaleData.
+```{r}
+pbmc <- ScaleData(object = pbmc, vars.to.regress = c("nCounts_RNA", "percent.mito"))
+
+```
+
+
+### Perform linear dimensional reduction
+–> refered to Seurat v2: Next we perform PCA on the scaled data. By default, the genes in object@var.genes are used as input, but can be defined using pc.genes. We have typically found that running dimensionality reduction on highly variable genes can improve performance. However, with UMI data - particularly after regressing out technical variables, we often see that PCA returns similar (albeit slower) results when run on much larger subsets of genes, including the whole transcriptome.
+
+–> refered to Seurat v3 (latest): high variable features are accessed through the function HVFInfo(object). Despite RunPCA has a features argument where to specify the features to compute PCA on, I’ve been modifying its values and the output PCA graph has always the same dimensions, indicating that the provided genes in the features argument are not exactly the ones used to compute PCA. Wether the function gets the HVG directly or does not take them into account, I don’t know.
+
+```{r}
+pbmc <- RunPCA(object = pbmc,  npcs = 30, verbose = FALSE)
+
+```
+
+–> refered to Seurat v2: Seurat provides several useful ways of visualizing both cells and genes that define the PCA, including PrintPCA, VizPCA, PCAPlot, and PCHeatmap
+
+–> refered to Seurat v3 (latest): Seurat v3 provides functions for visualizing: - PCA - PCA plot coloured by a quantitative feature - Scatter plot across single cells - Scatter plot across individual features - Variable Feature Plot - Violin and Ridge plots - Heatmaps
+
+
+```{r}
+# Examine and visualize PCA results a few different ways
+DimPlot(object = pbmc, reduction = "pca")
+```
+
+```{r}
+# Dimensional reduction plot, with cells colored by a quantitative feature
+FeaturePlot(object = pbmc, features = "MS4A1")
+```
+
+
+```{r}
+# Scatter plot across single cells, replaces GenePlot
+FeatureScatter(object = pbmc, feature1 = "MS4A1", feature2 = "PC_1")
+```
+
+```{r}
+FeatureScatter(object = pbmc, feature1 = "MS4A1", feature2 = "CD3D")
+
+```
+
+
+```{r}
+# Scatter plot across individual features, repleaces CellPlot
+CellScatter(object = pbmc, cell1 = "AGTCTACTAGGGTG", cell2 = "CACAGATGGTTTCT")
+```
+
+
+```{r}
+VariableFeaturePlot(object = pbmc)
+
+```
+
+```{r}
+# Violin and Ridge plots
+VlnPlot(object = pbmc, features = c("LYZ", "CCL5", "IL32"))
+```
+
+
+
+```{r}
+RidgePlot(object = pbmc, feature = c("LYZ", "CCL5", "IL32"))
+
+```
+
+In particular DimHeatmap allows for easy exploration of the primary sources of heterogeneity in a dataset, and can be useful when trying to decide which PCs to include for further downstream analyses. Both cells and genes are ordered according to their PCA scores. Setting cells.use to a number plots the ‘extreme’ cells on both ends of the spectrum, which dramatically speeds plotting for large datasets. Though clearly a supervised analysis, we find this to be a valuable tool for exploring correlated gene sets.
+```{r}
+# Heatmaps
+DimHeatmap(object = pbmc, reduction = "pca", cells = 200, balanced = TRUE)
+```
 
 
 
