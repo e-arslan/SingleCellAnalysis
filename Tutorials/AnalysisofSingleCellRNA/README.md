@@ -115,6 +115,8 @@ Since there is currently no standard method for performing scRNASeq, to perform 
 ## Seurat
 We recommend using Seurat for datasets with more than  5000 cells. For smaller dataset a good alternative will be SC3.  
 
+###  QC and selecting cells for further analysis
+
 
 
 
