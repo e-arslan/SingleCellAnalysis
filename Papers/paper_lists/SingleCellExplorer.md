@@ -17,8 +17,10 @@ https://github.com/d-feng/scExplorer
 
 # Similar applciations
 
-* 
+* iS-CellR
 ``` r
 shiny::runGitHub("iS-CellR", "immcore")
 ``` 
 
+* ASAP
+https://asap.epfl.ch
