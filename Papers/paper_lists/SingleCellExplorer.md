@@ -4,6 +4,8 @@
 * **Authors**: Feng et al.
 * **Tags**: Cancer Discovery
 * **Year**: 2019
+* **Rating**: 2/10
+
 
 # Summary
 
@@ -28,4 +30,6 @@ https://asap.epfl.ch
 
 Thoughts
 * Other applications are easier to install and start to analyze immediately. 
-* Not easy to tailor for different techniques / algorithms.   
+* Not easy to tailor for different techniques / algorithms. 
+
+
