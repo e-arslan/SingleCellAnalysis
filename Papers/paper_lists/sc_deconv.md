@@ -33,6 +33,10 @@ The deconvolution method consists of several key steps:
 
 # Conclusion
 * The choice of normalization method has a substantial impact on the results of downstream analyses.
+* The glmTreat function was used to detect genes with a DE log-fold change significantly greater than 1 between the groups. DE genes were defined at a FDR threshold of 5% after applying the Benjamini–Hochberg correction to the p values.
+* The topGO method was then applied to identify GO terms that were enriched within this unique set. 
+
+
 * Deconvolution Method
 
 **The computeSumFactors function in the scran package**
