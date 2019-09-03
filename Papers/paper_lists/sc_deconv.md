@@ -12,8 +12,7 @@
 * What
   * Authors propose a polling based normalization method for scRNA data to deal with zero inflation problem. 
 
-http://singlecellexplorer.org
-https://github.com/d-feng/scExplorer
+
 -------------------------
 
 # Intro Notes
@@ -30,3 +29,9 @@ The deconvolution method consists of several key steps:
 4. Deconvolving the pool-based size factors to their cell-based counterparts
 
 ![Examples](images/deconv_norm.png)
+
+
+# Conclusion
+* The choice of normalization method has a substantial impact on the results of downstream analyses.
+* Deconvolution Method
+**The computeSumFactors function in the scran package**
