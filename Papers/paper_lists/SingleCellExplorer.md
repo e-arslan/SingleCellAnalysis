@@ -13,18 +13,19 @@
   * Authors create a Python-based web server application for scRNA data analysis.
 
 http://singlecellexplorer.org
-
 https://github.com/d-feng/scExplorer
 -------------------------
 
 # Similar applciations
 
 * iS-CellR
+
 ``` r
 shiny::runGitHub("iS-CellR", "immcore")
 ``` 
 
 * ASAP
+
 https://asap.epfl.ch
 
 
