@@ -34,4 +34,5 @@ The deconvolution method consists of several key steps:
 # Conclusion
 * The choice of normalization method has a substantial impact on the results of downstream analyses.
 * Deconvolution Method
+
 **The computeSumFactors function in the scran package**
