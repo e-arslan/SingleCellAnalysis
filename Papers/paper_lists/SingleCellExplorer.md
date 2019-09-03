@@ -24,3 +24,8 @@ shiny::runGitHub("iS-CellR", "immcore")
 
 * ASAP
 https://asap.epfl.ch
+
+
+Thoughts
+* Other applications are easier to install and start to analyze immediately. 
+* Not easy to tailor for different techniques / algorithms.   
