@@ -22,6 +22,7 @@ Converting the cell-by-bin count matrix to a binary matrix. Some items in the co
 1) Filtering bins overlapping with the ENCODE blacklist.
 2) Removing unwanted chromosomes 
 3) The coverage of bins roughly obeys a log normal distribution. We remove the top 5% bins that overlap with invariant features such as the house keeping gene promoters.
+
 Opt ) Removing any cells of bin coverage less than 1,000. The rational behind this is that some cells may have high number of unique fragments but end up with low bin coverage after filtering. This step is optional but highly recommanded.
 
 
