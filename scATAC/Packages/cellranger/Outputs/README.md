@@ -1,4 +1,4 @@
-# 1. singlecell.csv
+# singlecell.csv
 
 ## Mapping results:
                           
