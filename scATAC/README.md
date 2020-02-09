@@ -69,8 +69,8 @@ PLSA (cellranger)
 
 
 ## Peak Calling
-ZINBA (cellranger) \
-MACS2 (scATAC-pro, Scasat)
-GEM (scATAC-pro)
-Binning (scATAC-pro)
-COMBINED (scATAC-pro)
+ZINBA (cellranger)  
+MACS2 (scATAC-pro, Scasat)  
+GEM (scATAC-pro)  
+Binning (scATAC-pro)  
+COMBINED (scATAC-pro)  
