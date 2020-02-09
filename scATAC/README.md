@@ -1,5 +1,3 @@
-Single Cell ATAC Seq 
-
 ## Preprocessing
 Demultiplexing  (scATAC-pro, cellranger)
 
@@ -66,7 +64,7 @@ PLSA (cellranger)
 ## Packages Abilities
 
 
-
+  
 
 ## Peak Calling
 ZINBA (cellranger)  
