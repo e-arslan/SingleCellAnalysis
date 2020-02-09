@@ -12,4 +12,10 @@ Personally not sure about the importance of the upper threshold for log10(UMI) s
 ## Step 2. Add cell-by-bin matrix
 Adding the cell-by-bin matrix of 5kb resolution to the snap object.
 
-This super sparse matrix(dgCMatrix) is added to bmat of snap object.
+This super sparse matrix(dgCMatrix) is added to bmat of snap object. dgCMatrix class allows to compact that huge matrix. For instance if you wanna change the class of cell by bin to matrix, it expands from ~300MB to ~15GB.
+
+## Step 3. Matrix binarization
+
+Converting the cell-by-bin count matrix to a binary matrix. Some items in the count matrix have abnormally high coverage perhaps due to the alignment errors. Therefore, we next remove top 0.1% items in the count matrix and then convert the remaining non-zero values to 1.
+
+
