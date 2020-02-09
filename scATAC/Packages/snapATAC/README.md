@@ -18,4 +18,11 @@ This super sparse matrix(dgCMatrix) is added to bmat of snap object. dgCMatrix c
 
 Converting the cell-by-bin count matrix to a binary matrix. Some items in the count matrix have abnormally high coverage perhaps due to the alignment errors. Therefore, we next remove top 0.1% items in the count matrix and then convert the remaining non-zero values to 1.
 
+## Step 4. Bin filtering
+1) Filtering bins overlapping with the ENCODE blacklist.
+2) Removing unwanted chromosomes 
+3) The coverage of bins roughly obeys a log normal distribution. We remove the top 5% bins that overlap with invariant features such as the house keeping gene promoters.
+Opt ) Removing any cells of bin coverage less than 1,000. The rational behind this is that some cells may have high number of unique fragments but end up with low bin coverage after filtering. This step is optional but highly recommanded.
+
+
 
