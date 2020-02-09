@@ -14,12 +14,12 @@ Bowtie2
 
 ## Dimension reduction and visualization
 PCA (scATAC-pro, cellranger)  
-LDA (scATAC-pro)	
-LSI (scATAC-pro, cellranger)	
-tSNE (scATAC-pro, Scasat, cellranger)	
-UMAP (scATAC-pro)	
-MDS (Scasat)	
-PLSA (cellranger)	
+LDA (scATAC-pro)  
+LSI (scATAC-pro, cellranger)  
+tSNE (scATAC-pro, Scasat, cellranger)  
+UMAP (scATAC-pro)  
+MDS (Scasat)  
+PLSA (cellranger)  
 
 ## QC Metrics
 
