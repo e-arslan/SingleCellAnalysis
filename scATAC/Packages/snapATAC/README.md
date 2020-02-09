@@ -7,3 +7,9 @@ Filtering barcodes according to those values
 Tutorial shows [3.5-5] for log10(UMI) and [0.4-0.8] for promoter ratio as cutoff
 Personally not sure about the importance of the upper threshold for log10(UMI) so I used
 [2-] for log10(UMI) and [0.2-0.8] for promoter ratio as cutoff
+
+
+## Step 2. Add cell-by-bin matrix
+Adding the cell-by-bin matrix of 5kb resolution to the snap object.
+
+This super sparse matrix(dgCMatrix) is added to bmat of snap object.
