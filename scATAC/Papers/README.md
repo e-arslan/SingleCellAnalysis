@@ -53,9 +53,22 @@ Nice Plots:
 * Did not see any normalization 
 
 
+## Rapid Generation of Somatic Mouse Mosaics w Locus-Specific, Stably Integrated 
+Steps:  
+1. CellRanger was used to identify and 
+	i. annotate open chromatin regions 
+	ii. perform aggregation of samples 
+	iii. Clustering of samples & motif analysis
 
+2. Cellranger outputs were used as inputs for cisTopic and snapATAC
+3. Harmony package wasused according to default settings to align snapATAC to E18.
 
+Nice Plots:  
+1. 
+![Examples](figs/Mouse_1.png)
 
+### Thoughts
+* Not mentioning about functions, or normalizing steps and no code available. 
 
 
 
