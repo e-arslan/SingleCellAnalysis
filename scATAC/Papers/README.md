@@ -64,7 +64,7 @@ Steps:
 3. Harmony package wasused according to default settings to align snapATAC to E18.
 
 Nice Plots:  
-1. 
+1.  tSNE of 3 combined scATAC-seq datasets from E18 brain after standard clustering.tSNE of samples from (up) post-Harmony alignment.
 ![Examples](figs/Mouse_1.png)
 
 ### Thoughts
