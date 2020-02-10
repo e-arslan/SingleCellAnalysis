@@ -16,7 +16,7 @@ Steps:
 
 Nice Plots:
 1. Average track of all clusters displayed (left top), binarized 100 random scATAC-seq tracks for each locus at a resolution of 100 bp (left bottom), scRNA-seq log2 violin and box plots of normalized expression
-![Examples](figs/Leukemia_1.png){:height="12px" width="12px"}
+![Examples]("figs/Leukemia_1.png"=100x)
 
 2. scRNA-seq heat map of upregulated genes (LFC > 0.5 and two-sided t test FDR < 0.01) log2(fold changes) comparing MPAL disease subpopulations to closest non-redundant normal cells. Differential genes were clustered using k-means clustering (k = 10) on the basis of their log2(fold changes). Right, scATAC-seq heat map (ordered by scRNA-seq hierarchal clustering on the left) of differentially upregulated accessible peaks (LFC > 0.5 and two-sided t test FDR < 0.01) log2(fold changes) comparing MPAL disease subpopulations
 to the closest non-redundant normal cells. Differential peaks were clustered using k-means clustering (k = 10) on the basis of their log2(fold changes).
